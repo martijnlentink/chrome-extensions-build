@@ -1,5 +1,7 @@
 @echo off
 setlocal enabledelayedexpansion
+echo === Removing old files ===
+@del /F /Q %CD%\bin\release.zip
 echo === Copy build files ===
 echo D | xcopy /s/e/y "..\src" "in"
 echo === Minifying sources ===
@@ -20,5 +22,6 @@ for /f "delims=" %%D in ('dir bin\build /b') do (
 	cscript res\zip.vbs %CD%\bin\release.zip add %CD%\bin\build\%%D > NUL
 	echo Added %%D to zip
 )
+@rmdir /S /Q %CD%\in\
 echo === We're done! ===
 pause
