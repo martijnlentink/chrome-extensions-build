@@ -20,6 +20,9 @@ for /R ./in %%f in (*.*) do (
   if "!s!"=="0" ( copy /Y %%f "!p!" > NUL)
   if "!e!"==".json" (cscript "res\replace.vbs" //B "!p!" 0.0.0 %appversion%)
 )
+::for /f "usebackq" %%a in (`"dir bin/build/ .git"`) do rmdir "%%a"
+del /s /q /f bin\build\*.git
+del /s /q /f bin\build\*.gitignore
 echo === Creating ZIP ===
 cscript res\zip.vbs %CD%\bin\release.zip new > NUL
 for /f "delims=" %%D in ('dir bin\build /b') do (
